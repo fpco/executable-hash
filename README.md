@@ -23,12 +23,12 @@ Alternatively, you can put this in a `Setup.hs` file, and set
 
 ```haskell
 import Distribution.Simple
-import System.Executable.Hash.Internal (injectExecutableHash)
+import System.Executable.Hash.Internal (maybeInjectExecutableHash)
 
 main :: IO ()
 main = defaultMainWithHooks $ simpleUserHooks
     { postBuild = \_ _ _ _ ->
-        injectExecutableHash "dist/build/path-to/your-executable"
+        maybeInjectExecutableHash "dist/build/path-to/your-executable"
     }
 ```
 
