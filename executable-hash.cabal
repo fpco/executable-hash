@@ -19,7 +19,7 @@ library
                      , System.Executable.Hash.Internal
   build-depends:       base
                      , executable-path >= 0.0.3 && < 0.1
-                     , file-embed >= 0.0.4 && < 0.1
+                     , file-embed >= 0.0.8 && < 0.1
                      , bytestring
                      , cryptohash
                      , directory
