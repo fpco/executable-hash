@@ -8,11 +8,16 @@ license-file:        LICENSE
 copyright:           2015 FP Complete
 author:              Michael Sloan
 maintainer:          FP Complete <sloan@fpcomplete.com>
+homepage:            http://github.com/fpco/executable-hash
+bug-reports:         http://github.com/fpco/executable-hash/issues
 category:            System
 stability:           Stable
 build-type:          Custom
 extra-source-files:  README.md
 cabal-version:       >= 1.10
+source-repository head
+  type: git
+  location: git://github.com/fpco/executable-hash
 
 library
   exposed-modules:     System.Executable.Hash
