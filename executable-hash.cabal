@@ -7,7 +7,7 @@ license:             MIT
 license-file:        LICENSE
 copyright:           2015 FP Complete
 author:              Michael Sloan
-maintainer:          FP Complete <sloan@fpcomplete.com
+maintainer:          FP Complete <sloan@fpcomplete.com>
 category:            System
 stability:           Stable
 build-type:          Custom
