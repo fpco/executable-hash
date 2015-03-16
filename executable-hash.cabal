@@ -13,7 +13,7 @@ bug-reports:         http://github.com/fpco/executable-hash/issues
 category:            System
 stability:           Stable
 build-type:          Custom
-extra-source-files:  README.md
+extra-source-files:  README.md, ChangeLog.md
 cabal-version:       >= 1.10
 source-repository head
   type: git
