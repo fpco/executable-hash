@@ -7,10 +7,11 @@ calculated at runtime.
 ## Usage
 
 The main function expected to be used by the user is
-`System.Executable.Hash.executableHash`.  This function yields a SHA1
-hash determined by the contents of the executable.  However, note that
-this may not be the actual SHA1 of the executable, since the hash can
-be injected into the executable (which changes its "actual" hash).
+`System.Executable.Hash.executableHash`.  When used in a TH splice,
+like `$(executableHash)`, the resulting expression yields a SHA1 hash
+determined by the contents of the executable.  However, note that this
+may not be the actual SHA1 of the executable, since the hash can be
+injected into the executable (which changes its "actual" hash).
 
 Installing this package will also install the `inject-executable-hash`
 executable.  Running this program on a binary, like

@@ -8,16 +8,23 @@ module System.Executable.Hash.Internal where
 import           Crypto.Hash.SHA1 (hash)
 import qualified Data.ByteString as BS
 import           Data.FileEmbed (dummySpaceWith, injectWith)
+import           Language.Haskell.TH (Q, Exp)
 import           System.Directory (doesFileExist)
 
--- | Yields a 'Just' value of a hash which has been injected into the
--- executable via 'injectExecutableHash'.
-injectedExecutableHash :: Maybe BS.ByteString
-injectedExecutableHash
-    | BS.all (== toEnum (fromEnum '0')) bs = Nothing
-    | otherwise = Just bs
-  where
-    bs = $(dummySpaceWith "executable-hash" 20)
+-- |  This generates an expression which yields the injected SHA1 hash.
+--
+-- The generated expression yields a 'Just' value when the injected
+-- SHA1 hash is present in the executable.  This hash is usually
+-- injected due to a usage of 'injectExecutableHash' /
+-- 'maybeInjectExecutableHash'.
+injectedExecutableHash :: Q Exp
+injectedExecutableHash =
+    [|
+    let bs = $(dummySpaceWith "executable-hash" 20)
+     in if BS.all (== toEnum (fromEnum '0')) bs
+           then Nothing
+           else Just bs
+    |]
 
 -- | Given the path to an executable, computes its hash and injects it
 -- into the binary, such that when that program demands the value of

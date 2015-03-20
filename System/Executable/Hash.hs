@@ -29,11 +29,16 @@ module System.Executable.Hash
 import           Control.Applicative ((<$>))
 import           Crypto.Hash.SHA1 (hash)
 import qualified Data.ByteString as BS
+import           Language.Haskell.TH (Q, Exp)
 import           System.Environment.Executable (getScriptPath, ScriptPath(..))
 import           System.Executable.Hash.Internal
 
--- | If a SHA1 hash of the executable has been injected into it, then
--- it's directly yielded by this function.  Otherwise, a hash is
+-- | This generates an expression which yields a SHA1 hash.  The
+-- generated expression has the type @IO (Maybe ByteString)@, just
+-- like 'computeExecutableHash'.
+--
+-- If a SHA1 hash of the executable has been injected into it, then
+-- it's directly yielded by this expression.  Otherwise, a hash is
 -- computed with 'computeExecutableHash'.
 --
 -- Note that you shouldn't rely on the result being the actual SHA1
@@ -43,11 +48,13 @@ import           System.Executable.Hash.Internal
 -- contents of the executable.
 --
 -- This yields 'Nothing' when run with @runhaskell@ or @ghci@.
-executableHash :: IO (Maybe BS.ByteString)
+executableHash :: Q Exp
 executableHash =
-    case injectedExecutableHash of
+    [|
+    case $(injectedExecutableHash) of
         Just x -> return (Just x)
         Nothing -> computeExecutableHash
+    |]
 
 -- | Computes the SHA1 hash of the program executable.
 --
