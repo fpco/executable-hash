@@ -6,4 +6,3 @@ main = defaultMainWithHooks $ simpleUserHooks
     { postBuild = \_ _ _ _ ->
         maybeInjectExecutableHash "dist/build/test-inject/test-inject"
     }
-
