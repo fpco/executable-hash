@@ -23,13 +23,15 @@ Alternatively, you can put this in a `Setup.hs` file, and set
 `build-type: Custom` in your `.cabal`:
 
 ```haskell
-import Distribution.Simple
+import Distribution.Simple (defaultMainWithHooks, simpleUserHooks, postBuild)
+import Distribution.Simple.LocalBuildInfo (buildDir)
 import System.Executable.Hash.Internal (maybeInjectExecutableHash)
+import System.FilePath ((</>))
 
 main :: IO ()
 main = defaultMainWithHooks $ simpleUserHooks
-    { postBuild = \_ _ _ _ ->
-        maybeInjectExecutableHash "dist/build/path-to/your-executable"
+    { postBuild = \_ _ _ buildInfo ->
+        maybeInjectExecutableHash (buildDir buildInfo </> "exeName/exeName")
     }
 ```
 
