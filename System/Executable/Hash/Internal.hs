@@ -5,6 +5,7 @@
 -- hash.
 module System.Executable.Hash.Internal where
 
+import           Control.Exception (SomeException, handle)
 import           Crypto.Hash.SHA1 (hash)
 import qualified Data.ByteString as BS
 import           Data.FileEmbed (dummySpaceWith, injectWith)
@@ -33,7 +34,7 @@ injectedExecutableHash =
 -- See the documentation in "System.Executable.Hash" for an example of
 -- how to use this with a cabal @postBuild@ hook
 injectExecutableHash :: FilePath -> IO ()
-injectExecutableHash fp = do
+injectExecutableHash fp = handle addPathToException $ do
     binary <- BS.readFile fp
     let sha1 = hash binary
     case injectWith "executable-hash" sha1 binary of
@@ -41,6 +42,10 @@ injectExecutableHash fp = do
         Just binary' -> do
             BS.writeFile fp binary'
             putStrLn $ "Successfully wrote " ++ fp ++ " with injected hash."
+  where
+    addPathToException ex = fail $
+        "While injecting hash into " ++ fp ++
+        ", the following exception occurred: " ++ show (ex :: SomeException)
 
 -- | Injects an executable hash into the specified binary.  If it
 -- doesn't exist, then this prints a message to stdout indicating that
