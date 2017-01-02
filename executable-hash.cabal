@@ -19,6 +19,16 @@ source-repository head
   type: git
   location: git://github.com/fpco/executable-hash
 
+custom-setup
+  setup-depends: base
+               , bytestring
+               , Cabal
+               , cryptohash
+               , directory
+               , file-embed
+               , filepath
+               , template-haskell
+
 library
   exposed-modules:     System.Executable.Hash
                      , System.Executable.Hash.Internal
