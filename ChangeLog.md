@@ -1,3 +1,9 @@
+0.2.0.3
+=======
+
+Add a `PackageImport` to avoid conflicting module names for `Crypto.Hash.SHA1`
+introduced by the `cryptohash-sha1` package.
+
 0.2.0.0
 =======
 

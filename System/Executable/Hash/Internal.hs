@@ -1,3 +1,4 @@
+{-# LANGUAGE PackageImports #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE OverloadedStrings #-}
 
@@ -6,7 +7,7 @@
 module System.Executable.Hash.Internal where
 
 import           Control.Exception (SomeException, handle)
-import           Crypto.Hash.SHA1 (hash)
+import "cryptohash" Crypto.Hash.SHA1 (hash)
 import qualified Data.ByteString as BS
 import           Data.FileEmbed (dummySpaceWith, injectWith)
 import           Language.Haskell.TH (Q, Exp)
