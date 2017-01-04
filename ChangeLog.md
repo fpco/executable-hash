@@ -1,3 +1,8 @@
+0.2.0.4
+=======
+
+Added `custom-setup` to `.cabal` file
+
 0.2.0.3
 =======
 
